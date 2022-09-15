@@ -48,6 +48,7 @@ public function page($slug){
         return view('front.page',$data);
 }
 public function contact(){
-        return "İletisim sayfası";
+    $data['pages'] = Page::orderby('order','ASC')->get();
+    return view('front.contact',$data);
 }
 }
