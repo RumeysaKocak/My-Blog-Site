@@ -33,13 +33,13 @@
                     </li>
                 @endforeach
 
-                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="iletisim">İletişim</a></li>
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{route('contact')}}">İletişim</a></li>
             </ul>
         </div>
     </div>
 </nav>
 <!-- Page Header-->
-<header class="masthead" style="background-image: url('@yield('bg',asset('front/img/home-bg.jpg'))')">
+<header class="masthead" style="background-image: url('@yield('bg',asset('front/assets/img/home-bg.jpg'))')">
     <div class="container position-relative px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-12 col-lg-8 col-xl-7">

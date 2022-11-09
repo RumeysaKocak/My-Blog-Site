@@ -2,43 +2,52 @@
 @section('title', 'İletişim')
 @section('bg', 'https://www.feke.bel.tr/tema/genel/uploads/arkaplan/arkaplan20/iletisim_1.jpg')
 @section('content')
-                <<div class="col-md-10 col-lg-8 col-xl-7">
-                    <p>Want to get in touch? Fill out the form below to send me a message and I will get back to you as soon as possible!</p>
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    @if(session('success'))
+                <div class="alert alert-success">
+                    {{session('success')}}
+                </div>
+                    @endif
+                    @if($errors->any())
+                        <div class=""alert alert-danger">
+                <ul>
+                    @foreach($errors->all() as $error)
+                        <li>{{$error}}</li>
+                    @endforeach
+                </ul>
+                </div>
+                @endif
+                    <p>Bizimle iletişime geçebilirsiniz.</p>
+                    <form method="post" action="{{route('contact.post')}}">
+                     @csrf
                     <div class="my-5">
-                        <!-- * * * * * * * * * * * * * * *-->
-                        <!-- * * SB Forms Contact Form * *-->
-                        <!-- * * * * * * * * * * * * * * *-->
-                        <!-- This form is pre-integrated with SB Forms.-->
-                        <!-- To make this form functional, sign up at-->
-                        <!-- https://startbootstrap.com/solution/contact-forms-->
-                        <!-- to get an API token!-->
-                        <form id="contactForm" data-sb-form-api-token="API_TOKEN">
+                        <form>
                             <div class="form-floating">
-                                <input class="form-control" id="name" type="text" placeholder="Enter your name..." data-sb-validations="required" />
-                                <label for="name">Name</label>
+                                <label>Ad Soyad</label>
+                                <input type="text" class="form-control" id="name" value="{{old('name')}}" placeholder="Adınız Soyadınız" name="name" required >
                                 <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
                             </div>
                             <div class="form-floating">
-                                <input class="form-control" id="email" type="email" placeholder="Enter your email..." data-sb-validations="required,email" />
-                                <label for="email">Email address</label>
+                                <label>Email Adresi</label>
+                                <input class="form-control" id="email" type="email" value="{{old('name')}}" placeholder="Email Adresiniz" name="email" required>
                                 <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
                                 <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
                             </div>
                             <div class="form-floating">
-                                <input class="form-control" id="phone" type="tel" placeholder="Enter your phone number..." data-sb-validations="required" />
-                                <label for="phone">Phone Number</label>
-                                <div class="invalid-feedback" data-sb-feedback="phone:required">A phone number is required.</div>
+                                <label>Konu</label>
+                                <br/>
+                                <select class = "form-control" name="topic">
+                                <option @if(old('topic')=="Bilgi") selected @endif>Bilgi</option>
+                                <option @if(old('topic')=="Destek") selected @endif>Destek</option>
+                                <option @if(old('topic')=="Genel") selected @endif>Genel</option>
+                                </select>
                             </div>
                             <div class="form-floating">
-                                <textarea class="form-control" id="message" placeholder="Enter your message here..." style="height: 12rem" data-sb-validations="required"></textarea>
-                                <label for="message">Message</label>
+                                <textarea rows="5" class="form-control" name="message" placeholder="Mesajınız">{{old('message')}}</textarea>
+                                <label>Mesajınız</label>
                                 <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.</div>
                             </div>
                             <br />
-                            <!-- Submit success message-->
-                            <!---->
-                            <!-- This is what your users will see when the form-->
-                            <!-- has successfully submitted-->
                             <div class="d-none" id="submitSuccessMessage">
                                 <div class="text-center mb-3">
                                     <div class="fw-bolder">Form submission successful!</div>
@@ -47,16 +56,12 @@
                                     <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
                                 </div>
                             </div>
-                            <!-- Submit error message-->
-                            <!---->
-                            <!-- This is what your users will see when there is-->
-                            <!-- an error submitting the form-->
+
                             <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
-                            <!-- Submit Button-->
-                            <button class="btn btn-primary text-uppercase disabled" id="submitButton" type="submit">Send</button>
+
+                            <button class="btn btn-primary text-uppercase" id="sendMessageButtton" type="submit">Gönder</button>
                         </form>
                     </div>
-                </div>
 
 @endsection
 
